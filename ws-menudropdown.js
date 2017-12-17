@@ -49,16 +49,25 @@
                 pluginStyle = function() {
                     $(selec).find('li ul').hide().parent().addClass('ws-hassub');
                     plugin.each(function(ey, el) {
+
+                        var mar_top = ($('li.ws-hassub').children('a').outerHeight() / 2) - 8;
+
+                        var hei = $('li.ws-hassub').children('a').outerHeight() - mar_top;
+
                         $('li.ws-hassub').css({
                             'position': 'relative',
                             'display': 'block',
                             'height': 'auto'
                         });
+
                         if (!$('li.ws-hassub').children('i').length) {
-                            $('li.ws-hassub').append('<i class="fa fa-chevron-down"></i>');
+                            $('li.ws-hassub').append(`
+                                <i class="fa fa-chevron-down"></i>
+                            `);
                         }
-                        $('li.ws-hassub.active').find('i.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up');
-                        
+
+                        $('li.ws-hassub.active').children('i.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up');
+
                         $('li.ws-hassub').children('a').css('display', 'table');
                         $('li.ws-hassub').children('i.fa').css({
                             'position': 'absolute',
@@ -67,8 +76,8 @@
                             'padding-left': '10px',
                             'padding-right': '10px',
                             'cursor': 'pointer',
-                            'height': $('li.ws-hassub').children('a').outerHeight(),
-                            'margin-top': ($('li.ws-hassub').children('a').outerHeight() / 2) - 8
+                            'height': hei,
+                            'margin-top': mar_top
                         });
                     });
                 };
@@ -86,11 +95,11 @@
                                     if ($(this).parent().children("ul").is(':hidden')) {
                                         $(this).parent().children("ul").slideDown(400);
                                     } else {
-                                        
+
                                         if (  $(this).parent().hasClass('active') ) {
                                             $(this).parent().removeClass('active');
                                         }
-                                        
+
                                         $(this).parent().children("ul").slideUp(400);
                                     }
                                     break;
